@@ -1,17 +1,13 @@
 image:
   repository: ghcr.io/apradillo597/hello-api
-  tag: "dev"
+  tag: "ee4e752190fbf94a0382e20c60147a7d3d446df1"
   pullPolicy: IfNotPresent
-
 replicaCount: 1
-
 service:
   type: ClusterIP
   port: 80
-
 resources:
-  requests: { cpu: "100m", memory: "128Mi" }
-  limits:   { cpu: "300m", memory: "256Mi" }
-
+  requests: {cpu: "100m", memory: "128Mi"}
+  limits: {cpu: "300m", memory: "256Mi"}
 env:
   APP_VERSION: "ghcr"
