@@ -1,11 +1,11 @@
 image:
+  tag: c2dcd744b4c4299475a7c5d34938a766e63a1550
 repository: ghcr.io/apradillo597/hello-api
 tag: "dev"
 pullPolicy: IfNotPresent
 # Si tu imagen en GHCR es privada, define imagePullSecrets y crea el secret
 # imagePullSecrets:
 # - name: ghcr-creds
-
 
 replicaCount: 1
 service:
@@ -18,8 +18,6 @@ memory: 128Mi
 limits:
 cpu: 300m
 memory: 256Mi
-
-
 # Enviar una variable con la versión (útil para ver el cambio sin entrar a la imagen)
 env:
 APP_VERSION: "local"
