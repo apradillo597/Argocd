@@ -1,12 +1,11 @@
-# Etapa de build 
 FROM node:20-alpine AS build
 WORKDIR /app
-COPY app/package.json ./package.json
-RUN npm ci --omit=dev
+# copia package.json y package-lock.json si existe
+COPY app/package*.json ./
+# usa ci si hay lockfile; si no, install
+RUN if [ -f package-lock.json ]; then npm ci --omit=dev; else npm install --omit=dev; fi
 COPY app ./
 
-
-# Etapa runtime 
 FROM node:20-alpine
 WORKDIR /app
 ENV NODE_ENV=production
