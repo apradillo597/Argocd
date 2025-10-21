@@ -10,6 +10,7 @@ jobs:
     permissions:
       contents: write
       packages: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
@@ -51,6 +52,7 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/hello-api:dev
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
       - name: Update image.tag
         run: |
           curl -L -o yq https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_amd64
@@ -59,10 +61,9 @@ jobs:
 
       - name: Create PR for image bump
         uses: peter-evans/create-pull-request@v6
-          with:
+        with:
           commit-message: "ci: bump image.tag to ${{ github.sha }}"
           branch: chore/bump-${{ github.sha }}
           title: "ci: bump image.tag to ${{ github.sha }}"
           body: "Auto bump from CI"
           base: main
-    
