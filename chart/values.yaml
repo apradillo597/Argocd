@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/apradillo597/hello-api
-  tag: "d4cd2cfcc270a2505578a4eec314ed0d01ccb9e1"
+  tag: "94165e70bbae2812b582e1ea11d74eed97c245c9"
   pullPolicy: IfNotPresent
 replicaCount: 1
 service:
