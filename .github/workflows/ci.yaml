@@ -51,3 +51,15 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/hello-api:dev
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Bump Helm image.tag to current SHA
+        if: github.ref == 'refs/heads/main'
+        run: |
+          sudo curl -L -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+          yq -i '.image.tag = env.GITHUB_SHA' chart/values.yaml
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add chart/values.yaml
+          git commit -m "ci: bump image.tag to ${GITHUB_SHA}" || echo "No changes"
+          git push origin HEAD:main
+    
