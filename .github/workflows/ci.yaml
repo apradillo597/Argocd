@@ -51,16 +51,18 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/hello-api:dev
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      - name: Bump Helm image.tag to current SHA
-        if: github.ref == 'refs/heads/main'
+      - name: Update image.tag
         run: |
-          sudo curl -L -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_amd64
-          sudo chmod +x /usr/local/bin/yq
-          yq -i '.image.tag = strenv(GITHUB_SHA)' chart/values.yaml
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add chart/values.yaml
-          git commit -m "ci: bump image.tag to ${GITHUB_SHA}" || echo "No changes"
-          git push origin HEAD:main
+          curl -L -o yq https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_amd64
+          chmod +x yq
+          ./yq -i '.image.tag = strenv(GITHUB_SHA)' chart/values.yaml
 
+      - name: Create PR for image bump
+        uses: peter-evans/create-pull-request@v6
+          with:
+          commit-message: "ci: bump image.tag to ${{ github.sha }}"
+          branch: chore/bump-${{ github.sha }}
+          title: "ci: bump image.tag to ${{ github.sha }}"
+          body: "Auto bump from CI"
+          base: main
     
