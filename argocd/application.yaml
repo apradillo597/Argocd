@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+name: hello-api
+namespace: argocd
+spec:
+destination:
+namespace: default
+server: https://kubernetes.default.svc
+project: default
+source:
+repoURL: https://github.com/apradillo597/Argocd.git
+path: chart
+targetRevision: main
+helm:
+parameters:
+- name: image.tag
+value: "{{ARGOCD_APP_REVISION}}"
+- name: env.APP_VERSION
+value: "{{ARGOCD_APP_REVISION}}"
+syncPolicy:
+automated:
+prune: true
+selfHeal: true
+syncOptions:
+- CreateNamespace=true
