@@ -1,18 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: root-app
+  name: demo-api
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/apradillo597/Argocd.git
     targetRevision: main
-    path: argocd              # 👈 aquí solo mirará la carpeta argocd
+    path: apps/demo        # 👈 aquí están los manifests reales
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: default
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
