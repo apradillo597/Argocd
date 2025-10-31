@@ -45,6 +45,6 @@ spec:
       containers:
         - name: canary-api
           # 👇 cambia esta imagen para probar el canary
-          image: nginx:1.27-alpine
+          image: nginx:1.26-alpine
           ports:
             - containerPort: 80
