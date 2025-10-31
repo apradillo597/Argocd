@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/apradillo597/Argocd.git
     targetRevision: main
-    path: apps/demo        # 👈 aquí están los manifests reales
+    path: chart/templates      # 👈 aquí están los manifests reales
   destination:
     server: https://kubernetes.default.svc
     namespace: default
