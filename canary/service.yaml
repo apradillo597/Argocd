@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: canary-api
+  labels:
+    app: canary-api
+spec:
+  type: ClusterIP
+  selector:
+    app: canary-api    # 👈 caza tanto stable como canary
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
