@@ -5,3 +5,10 @@ admin // 1l7Tc7KQHL3Sfwhd
 para vovler a sacar la pass :
 
  kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d; echo
+
+
+ para grafana:
+
+ kubectl port-forward -n monitoring svc/monitoring-grafana 3000:80
+
+ 
